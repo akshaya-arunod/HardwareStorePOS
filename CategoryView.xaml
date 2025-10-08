@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="HardwareStore.Views.CategoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HardwareStore.Views"
+             xmlns:vm="clr-namespace:HardwareStore.ViewModels"
+             Background="#F3F4F6">
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="125*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <DockPanel Grid.Row="0" Margin="0 0 0 20" Grid.ColumnSpan="2">
+            <TextBlock Text="Manage Categories" 
+                       FontSize="24" FontWeight="Bold" 
+                       Foreground="#111827" DockPanel.Dock="Left"/>
+            <Button Content="+ Add Category"
+                    Background="#3B82F6"
+                    Foreground="White"
+                    Width="150" Height="36"
+                    FontWeight="Bold"
+                    Click="AddCategory_Click"
+                    DockPanel.Dock="Right"/>
+        </DockPanel>
+
+        <!-- Category Cards -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+            <ItemsControl x:Name="CategoryItemsControl" ItemsSource="{Binding Categories}" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel IsItemsHost="True" Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+            CornerRadius="8"
+            Padding="16"
+            Margin="0 0 0 12"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            HorizontalAlignment="Stretch"  >
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Left: Category Name aligned left -->
+                                <TextBlock Text="{Binding Name}" 
+                       FontSize="18" FontWeight="Bold" Foreground="#111827" 
+                       VerticalAlignment="Center" Grid.Column="0" />
+
+                                <!-- Center: Items count centered horizontally -->
+                                <TextBlock Text="{Binding ItemCount, StringFormat='Items: {0}'}" 
+                       Grid.Column="0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="#6B7280"
+                       FontWeight="SemiBold" />
+
+                                <!-- Right: Buttons -->
+                                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <Button Content="Edit" Margin="8,0" Padding="6,2" Click="EditCategory_Click" />
+                                    <Button Content="Delete" Margin="8,0" Padding="6,2"
+                        Background="#FEE2E2" Foreground="#B91C1C" BorderBrush="#B91C1C"
+                        Click="DeleteCategory_Click" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

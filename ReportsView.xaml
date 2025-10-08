@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="HardwareStore.Views.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F9FAFB"
+             Padding="24"
+             MinWidth="720" MinHeight="520"
+             FontFamily="Segoe UI">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Filters -->
+            <RowDefinition Height="*"/>
+            <!-- Report data -->
+            <RowDefinition Height="Auto"/>
+            <!-- Buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- Filters Section -->
+        <Border Background="White" CornerRadius="10" Padding="16" Margin="0 0 0 24" Grid.Row="0">
+            <Border.Effect>
+                <DropShadowEffect Color="#40000000" BlurRadius="8" ShadowDepth="2" Opacity="0.2"/>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                <!-- Start Date -->
+                <StackPanel Margin="0 0 24 0" VerticalAlignment="Center">
+                    <TextBlock Text="Start Date" FontWeight="SemiBold" FontSize="14" Foreground="#374151" Margin="0 0 0 6"/>
+                    <DatePicker x:Name="StartDatePicker" SelectedDate="{Binding StartDate}" Width="150" Height="34"
+                                Background="#F3F4F6" BorderBrush="#D1D5DB" BorderThickness="1"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center" />
+                </StackPanel>
+
+                <!-- End Date -->
+                <StackPanel Margin="0 0 24 0" VerticalAlignment="Center">
+                    <TextBlock Text="End Date" FontWeight="SemiBold" FontSize="14" Foreground="#374151" Margin="0 0 0 6"/>
+                    <DatePicker x:Name="EndDatePicker" SelectedDate="{Binding EndDate}" Width="150" Height="34"
+                                Background="#F3F4F6" BorderBrush="#D1D5DB" BorderThickness="1"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center" />
+                </StackPanel>
+
+                <!-- Report Type -->
+                <StackPanel Margin="0 0 24 0" VerticalAlignment="Center">
+                    <TextBlock Text="Report Type" FontWeight="SemiBold" FontSize="14" Foreground="#374151" Margin="0 0 0 6"/>
+                    <ComboBox x:Name="ReportTypeComboBox" SelectedIndex="0" Width="180" Height="34"
+                              ItemsSource="{Binding ReportTypes}" SelectedItem="{Binding SelectedReportType}"
+                              Background="#F3F4F6" BorderBrush="#D1D5DB" BorderThickness="1"
+                              VerticalContentAlignment="Center" />
+                </StackPanel>
+
+                <!-- Load Report Button -->
+                <Button Content="Load Report" Width="120" Height="34" Margin="0"
+                        Background="#2563EB" Foreground="White" FontWeight="SemiBold"
+                        BorderThickness="0" VerticalAlignment="Center"
+                        Command="{Binding LoadReportCommand}" />
+            </StackPanel>
+        </Border>
+
+        <!-- Report Data Section -->
+        <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="16">
+            <Border.Effect>
+                <DropShadowEffect Color="#40000000" BlurRadius="8" ShadowDepth="2" Opacity="0.2"/>
+            </Border.Effect>
+            <DataGrid x:Name="ReportDataGrid"
+                      ItemsSource="{Binding ReportData}" 
+                      AutoGenerateColumns="True" 
+                      CanUserAddRows="False" 
+                      IsReadOnly="True"
+                      RowHeight="32"
+                      GridLinesVisibility="None"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
+                      FontSize="14"
+                      BorderThickness="0"
+                      />
+        </Border>
+
+        <!-- Buttons Section -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="0 16 0 0">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="0,0,16,0"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Content="Export CSV" Width="110" Height="34"
+                    Background="White" BorderBrush="#2563EB" BorderThickness="1" Foreground="#2563EB"
+                    FontWeight="SemiBold"
+                    Command="{Binding ExportCsvCommand}" />
+            <Button Content="Print" Width="110" Height="34" Margin="0"
+                    Background="#2563EB" Foreground="White" FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Command="{Binding PrintReportCommand}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
